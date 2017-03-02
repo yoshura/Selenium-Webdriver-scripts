@@ -3,6 +3,8 @@ layout: post
 title: Facebook status poster - Simple Example - 11.01.2017
 ---
 
+"Facebook status poster" Selenium Webdriver Automation test - simple example 
+
 <br>from selenium import webdriver
 <br>import time
 <br>
