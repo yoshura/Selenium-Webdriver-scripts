@@ -57,9 +57,10 @@ for friendbutton in friendbuttons:
         friendbutton.click()
         i = i + 1
         print("Add " + str(i) + " friend")
-        if (i > 10):
+        if (i > 5):
          break
-print(str(i))
+         
+
 print ("Invite friends to like your fanpage")
 driver.get("Link to your fanpage")
 time.sleep(2)
