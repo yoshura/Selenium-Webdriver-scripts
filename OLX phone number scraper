@@ -1,5 +1,4 @@
-#"OLX phone number scraper" Selenium Webdriver Automation test - simple example
-
+#"OLX phone number extractor" Selenium Webdriver Automation test - simple example
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.common.exceptions import NoSuchElementException
 from selenium import webdriver
@@ -10,15 +9,14 @@ driver = webdriver.Firefox()
 driver.implicitly_wait(30)
 driver.maximize_window()
 
-#Go to Olx 'Elektornika'
+#Go to Olx Elektornika
 x = 1 # Strona na OLX
-ilenr = 1 # Krory nr telefonu
-for x in range(1, 10):
+ilenr = 1 # Krorynr telefonu
+for x in range(1, 500):
     driver.get("https://www.olx.pl/elektronika/?page="+str(x))
     x = x + 1
-    #Search a ll auctions on first page
+    #Find all auctions on page
     links = [link.get_attribute('href') for link in driver.find_elements_by_xpath("//a[@class='marginright5 link linkWithHash detailsLink']")]
-    print(len(links))
 
     for link in links:
         driver.implicitly_wait(2)
@@ -27,13 +25,13 @@ for x in range(1, 10):
             #click on spoiler
             spoiler = driver.find_element_by_xpath("//span[@class='spoiler']").click()
             #Save phone number
-            number = driver.find_elements_by_xpath("//strong[@class='xx-large']")
+            number = driver.find_element_by_xpath("//strong[@class='xx-large']")
             numbersfile = open("numery.txt", "a")
             numbersfile.write(number.text + "\n")
-            print 'To twoj ', ilenr, ' zapisany numer', number.text
+            print 'To twoj', ilenr, 'zapisany numer:', number.text
             ilenr = ilenr + 1
         except (ElementNotVisibleException, NoSuchElementException):
-            print("brak numeru")
+            print("brak numeru w tym ogloszeniu")
 
 
 
