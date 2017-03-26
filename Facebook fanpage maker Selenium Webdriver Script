@@ -1,5 +1,6 @@
 
-#"Facebook Script" Selenium Webdriver Automation test - simple example
+#"Facebook fanpage maker" Selenium Webdriver Automation - simple example
+
 # 1. Script accept all new friends
 # 2. Send 5 invites to "People You May Know"
 # 3. Invite friends to like your fanpage
@@ -20,24 +21,24 @@ driver.get("https://www.facebook.com/friends/requests/?fcref=jwl")
 
 #Log in
 email = driver.find_element_by_id("email")
-email.send_keys("youremail")
+email.send_keys("testfejsbook@wp.pl")
 password = driver.find_element_by_id("pass")
-password.send_keys("yourpassword")
+password.send_keys("(Facebook)")
 
 #Loginbutton submit
 loginbutton = driver.find_element_by_id("loginbutton")
 loginbutton.submit()
-print("You are log in")
+print("You are logged")
 
-#Accept new friends
+#Invites check
 myinvites = driver.find_elements_by_xpath("//div[@class='ruResponseButtons']/button[contains(text(), 'Potwierd')]")
 newinvites = str(len(myinvites))
 print ("Found " + newinvites + " friends to accept")
-time.sleep(2)
+
 #Friends accepting
 invitenumber = int(newinvites)
 if (invitenumber > 0):
-    time.sleep(3)
+    driver.implicitly_wait(3)
     for myinvite in myinvites:
         myinvite.click()
         print("Friend accepted")
@@ -50,19 +51,18 @@ friendbuttons = driver.find_elements_by_xpath("//*[@class='uiList _4kg _6-h _6-j
 for friendbutton in friendbuttons:
     # check for popup
     try:
-        time.sleep(3)
+        time.sleep(4)
         driver.find_element_by_link_text('Zamknij').click()
-        print ('Popup closed')
+        print ('Popup zamkniety')
     except (ElementNotVisibleException, NoSuchElementException):
         friendbutton.click()
         i = i + 1
         print("Add " + str(i) + " friend")
-        if (i > 5):
+        if (i > 2   ):
          break
-         
-
-print ("Invite friends to like your fanpage")
-driver.get("Link to your fanpage")
+print(str(i))
+print ("Invite friends to fanpage")
+driver.get("Your fanpage address")
 time.sleep(2)
 addfanpagefrs = driver.find_elements_by_xpath("//button[@class='_4jy0 _4jy3 _517h _51sy _42ft']")
 time.sleep(1)
@@ -70,7 +70,14 @@ for addfanpagefr in addfanpagefrs:
     addfanpagefr.click()
     print("Friend added")
 
-print("The End :)")
+print("The End")
+
+
+
+
+
+
+
 
 
 
