@@ -1,0 +1,50 @@
+#"OLX get number" Selenium Webdriver Automation test - simple example
+#Spacje z numerow
+from selenium.common.exceptions import ElementNotVisibleException
+from selenium.common.exceptions import NoSuchElementException
+from selenium import webdriver
+import time
+
+# Start Firefox session
+driver = webdriver.Firefox()
+driver.implicitly_wait(30)
+driver.maximize_window()
+
+#Go to Olx Elektornika
+x = 1 # Strona na OLX
+ilenr = 1 # Krorynr telefonu
+for x in range(1, 10):
+    driver.get("https://www.olx.pl/elektronika/?page="+str(x))
+    x = x + 1
+    #Search a ll auctions on first page
+    links = [link.get_attribute('href') for link in driver.find_elements_by_xpath("//a[@class='marginright5 link linkWithHash detailsLink']")]
+    print(len(links))
+
+    for link in links:
+        driver.implicitly_wait(2)
+        driver.get(link)
+        try:
+            #click on spoiler
+            spoiler = driver.find_element_by_xpath("//span[@class='spoiler']").click()
+            #Save phone number
+            number = driver.find_elements_by_xpath("//strong[@class='xx-large']")
+            numbersfile = open("numery.txt", "a")
+            numbersfile.write(number.text + "\n")
+            print 'To twoj ', ilenr, ' zapisany numer', number.text
+            ilenr = ilenr + 1
+        except (ElementNotVisibleException, NoSuchElementException):
+            print("brak numeru")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
